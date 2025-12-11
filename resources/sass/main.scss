@@ -1,0 +1,257 @@
+//@import '@fortawesome/fontawesome-free/css/all.css';
+
+// =========================
+// Цвета
+// =========================
+$primary: #5d5dd1;
+$color1: #e9c46a;
+$color2: #f4a261;
+$color3: #e76f51;
+$color4: #2a9d8f;
+$color5: #264653;
+
+// =========================
+// Базовые стили
+// =========================
+h1 {
+  font-weight: normal;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+// =========================
+// HEADER
+// =========================
+.header {
+  background-color: #F5F5F5;
+  color: gray;
+  font-size: 20px;
+
+  &__logo {
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__download-btn {
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 24px;
+    background-color: rgba(93, 93, 209, 0.844);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(15, 15, 136, 0.844);
+    }
+
+    &--small {
+      padding: 6px 20px;
+      font-size: 14px;
+    }
+
+    &--gap-right {
+      margin-right: 24px;
+    }
+  }
+}
+
+// =========================
+// MAIN
+// =========================
+.main {
+  &__title {
+    margin: 20px 0 30px;
+  }
+
+  &__cards {
+    padding-bottom: 100px;
+  }
+
+  &__border {
+    border-bottom: 1px solid gray;
+  }
+
+  // ===== Карточка товара =====
+  &__card {
+    @extend .card;
+    position: relative;
+    transition: all 0.3s ease;
+    border: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    // Цветные бордеры слева
+    &[data-card-color="1"] {
+      border-left: 4px solid $color1;
+
+      &:hover {
+        background-color: lighten($color1, 20%);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &[data-card-color="2"] {
+      border-left: 4px solid $color2;
+
+      &:hover {
+        background-color: lighten($color2, 20%);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &[data-card-color="3"] {
+      border-left: 4px solid $color3;
+
+      &:hover {
+        background-color: lighten($color3, 20%);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &[data-card-color="4"] {
+      border-left: 4px solid $color4;
+
+      &:hover {
+        background-color: lighten($color4, 20%);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &[data-card-color="5"] {
+      border-left: 4px solid $color5;
+
+      &:hover {
+        background-color: lighten($color5, 20%);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    // Картинка карточки
+    .card-img-top {
+      height: 300px;
+      object-fit: cover;
+    }
+
+    // Внутренности карточки
+    .card-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-family: Arial, sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .card-text {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      align-self: flex-start;
+    }
+
+    // Бейдж "Эксклюзив / ..." + tooltip
+    &-type {
+      display: inline-block;
+      background-color: #000;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 5;
+
+      position: absolute;
+      top: 10px;
+      left: 10px;
+
+      .main__card-type-tooltip {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        margin-top: 4px;
+
+        background-color: #000;
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 4px;
+        white-space: nowrap;
+        font-size: 12px;
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(4px);
+        transition: opacity 0.15s ease, transform 0.15s ease;
+      }
+
+      &:hover .main__card-type-tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// =========================
+// FOOTER
+// =========================
+.footer {
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 0;
+    font-size: 24px;
+  }
+
+  &__icons {
+    display: flex;
+    gap: 30px;
+  }
+}
+
+// =========================
+// Toast + FontAwesome
+// =========================
+.toast-body {
+  .fa-spinner {
+    font-size: 1.2rem;
+  }
+}
+.toast {
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  font-size: 0.95rem;
+}

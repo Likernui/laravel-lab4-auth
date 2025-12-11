@@ -1,0 +1,69 @@
+/* ===========================
+   ШАПКА: кнопки справа
+   =========================== */
+
+.header__download {
+  display: flex;
+  align-items: center;
+}
+
+/* Модификатор: сделать кнопку чуть меньше */
+.header__download-btn--small {
+  padding: 6px 20px;
+  font-size: 14px;
+}
+
+/* Модификатор: отодвинуть кнопку вправо (для "Добавить фигурку") */
+.header__download-btn--gap-right {
+  margin-right: 24px;
+}
+
+/* ===========================
+   TOOLTIP для типа фигурки
+   =========================== */
+
+/* Карточка — чтобы всё позиционировалось внутри неё */
+.main__card {
+  position: relative;
+}
+
+/* Сам бейдж типа (Эксклюзив, Лимитированное издание и т.п.) */
+.main__card-type {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #000;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: default;
+}
+
+/* Внутренний tooltip */
+.main__card-type-tooltip {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 4px;
+
+  background-color: #000;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 9999;
+}
+
+/* Показываем tooltip при наведении на бейдж */
+.main__card-type:hover .main__card-type-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}

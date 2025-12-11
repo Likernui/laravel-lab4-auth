@@ -1,0 +1,18 @@
+// Кастомные брейкпоинты для широких экранов
+$custom-breakpoints: (
+  xxxl: 1800px
+);
+
+// Объединяем с стандартными брейкпоинтами Bootstrap
+$grid-breakpoints: map-merge(
+  $grid-breakpoints,
+  $custom-breakpoints
+);
+
+// Кастомные максимальные ширины контейнеров
+$container-max-widths: map-merge(
+  $container-max-widths,
+  (
+    xxxl: 1700px
+  )
+);

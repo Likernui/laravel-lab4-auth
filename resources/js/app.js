@@ -60,7 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
         releaseEl.textContent =
             release ? `Дата выхода: ${release}` : "";
     }
-
+    /**
+    * Переключает карточку по индексу и обновляет содержимое модалки.
+    * Используется кнопками «влево/вправо» и стрелками на клавиатуре.
+    */
     function showByIndex(index) {
         if (!detailButtons.length) return;
 

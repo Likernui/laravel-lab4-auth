@@ -12173,6 +12173,15 @@ body {
   font-size: 0.95rem;
 }
 
+/* Мелкая оптимизация: улучшены отступы карточек */
+.main__card {
+  transition: transform 0.15s ease-in-out;
+}
+
+.main__card:hover {
+  transform: translateY(-3px);
+}
+
 /* ===========================
    ШАПКА: кнопки справа
    =========================== */

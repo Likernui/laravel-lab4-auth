@@ -25,7 +25,7 @@ class CreateFiguresTable extends Migration
         $table->text('short_description')->nullable(); // Краткое описание (для карточки)
         $table->text('full_description')->nullable();  // Полное описание (для модалки)
 
-        // Дата выхода фигурки (для мутаторов)
+        // Дата выхода фигурки
         $table->date('release_date')->nullable();
 
         // Служебные поля

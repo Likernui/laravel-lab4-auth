@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Figure extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -21,23 +21,6 @@ class Figure extends Model
     ];
 
     protected $casts = [
-        'release_date' => 'date',
+        'release_date' => 'date:Y-m-d',
     ];
-
-    /**
-     * Готовый URL для картинки.
-     * Если файла нет — placeholder.png из public/images.
-     */
-    public function getImageUrlAttribute(): string
-    {
-        if ($this->image) {
-            $path = public_path('storage/' . $this->image);
-            if (file_exists($path)) {
-                return asset('storage/' . $this->image);
-            }
-        }
-
-        // Файл не найден или image = null
-        return asset('images/placeholder.png');
-    }
 }

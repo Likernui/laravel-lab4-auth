@@ -6,28 +6,28 @@ use App\Models\Figure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-
-
 class FigureController extends Controller
 {
     /**
- * Контроллер для работы с фигурками.
- *
- * Здесь реализованы:
- * - вывод списка фигурок;
- * - создание новой фигурки;
- * - редактирование существующей;
- * - удаление;
- * - просмотр деталей.
- */
+     * Контроллер для работы с фигурками.
+     *
+     * Здесь реализованы:
+     * - вывод списка фигурок;
+     * - создание новой фигурки;
+     * - редактирование существующей;
+     * - удаление;
+     * - просмотр деталей.
+     */
 
     public function index()
     {
-    /**
-     * Показать список всех фигурок.
-     */
+        /**
+         * Показать список фигурок текущего пользователя.
+         */
 
-        $figures = Figure::orderBy('id')->get();
+        $figures = Figure::where('user_id', auth()->id())
+            ->orderBy('id')
+            ->get();
 
         return view('figures.index', compact('figures'));
     }
@@ -39,11 +39,11 @@ class FigureController extends Controller
 
     public function store(Request $request)
     {
-    /**
-     * Сохранить новую фигурку в базу данных.
-     *
-     * Здесь выполняется валидация формы и загрузка изображения.
-     */
+        /**
+         * Сохранить новую фигурку в базу данных.
+         *
+         * Здесь выполняется валидация формы и загрузка изображения.
+         */
 
         // Картинка ОБЯЗАТЕЛЬНА
         $validated = $request->validate(
@@ -61,10 +61,10 @@ class FigureController extends Controller
                 'name.required'              => 'Это поле обязательно для заполнения.',
                 'type.required'              => 'Это поле обязательно для заполнения.',
                 'short_description.required' => 'Это поле обязательно для заполнения.',
-                'image.required'            => 'Необходимо загрузить изображение.',
-                'image.image'               => 'Файл должен быть изображением.',
-                'image.mimes'               => 'Допустимые форматы: jpg, jpeg, png, webp.',
-                'image.max'                 => 'Размер файла не должен превышать 4 МБ.',
+                'image.required'             => 'Необходимо загрузить изображение.',
+                'image.image'                => 'Файл должен быть изображением.',
+                'image.mimes'                => 'Допустимые форматы: jpg, jpeg, png, webp.',
+                'image.max'                  => 'Размер файла не должен превышать 4 МБ.',
             ]
         );
 
@@ -73,7 +73,13 @@ class FigureController extends Controller
 
         $figure = new Figure();
         $figure->fill($validated);
+
+        // сохраняем путь в то же поле, что используется дальше в контроллере
         $figure->image = $path;
+
+        // ✅ привязка фигурки к текущему пользователю
+        $figure->user_id = auth()->id();
+
         $figure->save();
 
         return redirect()
@@ -83,21 +89,21 @@ class FigureController extends Controller
 
     public function edit(Figure $figure)
     {
-    /**
-     * Показать форму редактирования существующей фигурки.
-     */
+        /**
+         * Показать форму редактирования существующей фигурки.
+         */
 
         return view('figures.edit', compact('figure'));
     }
 
     public function update(Request $request, Figure $figure)
     {
-    /**
-     * Обновить данные фигурки в базе.
-     *
-     * При необходимости можно заменить изображение:
-     * старое удаляется из storage, новое сохраняется.
-     */
+        /**
+         * Обновить данные фигурки в базе.
+         *
+         * При необходимости можно заменить изображение:
+         * старое удаляется из storage, новое сохраняется.
+         */
 
         $validated = $request->validate(
             [
@@ -141,9 +147,9 @@ class FigureController extends Controller
 
     public function destroy(Figure $figure)
     {
-    /**
-     * Удалить фигурку и её изображение (если оно было загружено).
-     */
+        /**
+         * Удалить фигурку и её изображение (если оно было загружено).
+         */
 
         if ($figure->image) {
             Storage::disk('public')->delete($figure->image);

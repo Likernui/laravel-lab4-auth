@@ -2,11 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <title>asakura shop – Лабораторная №3</title>
+    <title>asakura shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{-- Скомпилированные стили (Bootstrap + твой SCSS) --}}
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 
@@ -20,19 +19,34 @@
             </div>
         </div>
 
-        <div class="header__info">
-            {{-- Кнопка "Добавить фигурку" --}}
+        <div class="header__info" style="gap: 10px;">
             <a href="{{ route('figures.create') }}"
                class="header__download-btn header__download-btn--small header__download-btn--gap-right">
                 Добавить фигурку
             </a>
 
-            {{-- Кнопка "Загрузить" (показывает toast) --}}
             <a href="#"
                id="downloadBtn"
                class="header__download-btn header__download-btn--small">
                 Загрузить
             </a>
+
+            {{-- Auth-блок --}}
+            @auth
+                <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="header__download-btn header__download-btn--small">
+                        Logout
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="header__download-btn header__download-btn--small">
+                    Login
+                </a>
+                <a href="{{ route('register') }}" class="header__download-btn header__download-btn--small">
+                    Register
+                </a>
+            @endauth
         </div>
     </div>
 </header>
@@ -61,10 +75,9 @@
     </div>
 </footer>
 
-{{-- Toast-контейнер (правый верхний угол) --}}
+{{-- Toast-контейнер --}}
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080;">
 
-    {{-- Toast для кнопки "Загрузить" --}}
     <div id="downloadToast"
          class="toast text-bg-primary border-0 mb-2"
          role="alert"
@@ -84,7 +97,6 @@
         </div>
     </div>
 
-    {{-- Toast для успеха CRUD (добавление/редактирование/удаление) --}}
     @if (session('success'))
         <div id="successToast"
              class="toast text-bg-success border-0"
@@ -104,8 +116,7 @@
     @endif
 </div>
 
-{{-- Скомпилированный JS (Bootstrap + твой app.js) --}}
-<script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 </body>
 </html>
